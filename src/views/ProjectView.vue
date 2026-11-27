@@ -1,6 +1,6 @@
 <script setup>
 
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 const route = useRoute()
 const url = ref(`https://ngy.582helvetica.com/wp-portfolio/wp-json/wp/v2/project?slug=${route.params.slug}&acf_format=standard`)
@@ -25,6 +25,18 @@ let fetchData = async () => {
 onMounted(() => {
   fetchData()
 })
+
+watch(
+  () => route.params.slug,
+  (newSlug, oldSlug) => {
+    if (newSlug !== oldSlug) {
+      loaded.value = false
+      url.value = `https://ngy.582helvetica.com/wp-portfolio/wp-json/wp/v2/project?slug=${newSlug}&acf_format=standard`
+      fetchData()
+    }
+  }
+)
+
 </script>
 
 <template>
