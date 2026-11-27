@@ -1,4 +1,18 @@
-<script setup></script>
+<script setup>
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const projects = ref([])
+
+onMounted(() => {
+  fetch('https://ngy.582helvetica.com/wp-portfolio/wp-json/wp/v2/project/?acf_format=standard')
+    .then(response => response.json())
+    .then(data => {
+      projects.value = data
+    })
+})
+</script>
 
 <template>
   <h1>Dynamic Routing Example</h1>
@@ -18,6 +32,10 @@
       </li>
       <li>
         <router-link to="/project/bruce">Project: Bruce</router-link>
+      </li>
+      <li v-for="project in projects" :key="project.id">
+        <router-link :class="{ active: router.currentRoute.value.path === `/project/${project.slug}` }"
+          :to="`/project/${project.slug}`">{{ project.title.rendered }}</router-link>
       </li>
     </ul>
   </nav>
