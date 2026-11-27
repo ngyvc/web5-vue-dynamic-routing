@@ -1,7 +1,9 @@
 <script setup>
 
 import { onMounted, ref } from 'vue'
-const url = ref(`https://ngy.582helvetica.com/wp-portfolio/wp-json/wp/v2/project?slug=bruce&acf_format=standard`)
+import { useRoute } from 'vue-router'
+const route = useRoute()
+const url = ref(`https://ngy.582helvetica.com/wp-portfolio/wp-json/wp/v2/project?slug=${route.params.slug}&acf_format=standard`)
 
 let wordpress = ref([])
 
