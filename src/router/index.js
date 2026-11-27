@@ -39,6 +39,13 @@ const router = createRouter({
       label: "Not Found",
       component: () => import("../views/NotFoundView.vue"),
     },
+    // catch all 404 - define this after all other routes
+    {
+      path: "/:preMatch(.*)*",
+      name: "NotFound",
+      label: "Not Found",
+      component: () => import("../views/NotFoundView.vue"),
+    },
   ],
   scrollBehavior(to, from, savedPosition) {
     // Preserve scroll position when using browser back/forward buttons
