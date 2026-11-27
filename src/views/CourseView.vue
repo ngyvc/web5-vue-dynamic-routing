@@ -76,18 +76,38 @@ watch(
         <h1>{{ category[0]?.slug }} - {{ category[0]?.id }}</h1>
         <div class="projects-grid" v-if="projectsLoaded">
             <div v-for="project in projects" :key="project.id" class="project-card">
-                <h2>{{ project.title.rendered }}</h2>
-                <p>{{ project.acf.description ? project.acf.description : 'No description available' }}</p>
-                <img :src="project.acf.preview_image?.url ? project.acf.preview_image?.url : 'https://placehold.co/600x400?text=404'"
-                    alt="Project Image" />
+                <router-link :to="`/project/${project.slug}`">
+                    <h2>{{ project.title.rendered }}</h2>
+                    <img :src="project.acf.preview_image?.url ? project.acf.preview_image?.url : 'https://placehold.co/600x400?text=404'"
+                        alt="Project Image" />
+                </router-link>
             </div>
         </div>
     </section>
 </template>
 
 <style scoped>
-img {
-    max-width: 100%;
-    height: auto;
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
+    gap: 1em;
+}
+
+.project-card {
+    position: relative;
+
+    h2 {
+        position: absolute;
+        background-color: rgba(255, 255, 255, 0.5);
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+
+    img {
+        max-width: 10em;
+        height: auto;
+    }
 }
 </style>
