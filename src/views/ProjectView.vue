@@ -1,8 +1,9 @@
 <script setup>
 
 import { onMounted, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 const route = useRoute()
+const router = useRouter()
 const url = ref(`https://ngy.582helvetica.com/wp-portfolio/wp-json/wp/v2/project?slug=${route.params.slug}&acf_format=standard`)
 
 let wordpress = ref([])
@@ -17,6 +18,12 @@ let fetchData = async () => {
     }
     const data = await response.json()
     wordpress.value = data
+
+    // If the data is empty, redirect to the 404 page
+    if (wordpress.value.length === 0) {
+      router.push({ override: true, name: 'NotFound' })
+      return
+    }
     loaded.value = true
   } catch (error) {
     console.error(error)
