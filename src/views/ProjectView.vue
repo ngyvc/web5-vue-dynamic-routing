@@ -21,7 +21,7 @@ let fetchData = async () => {
 
     // If the data is empty, redirect to the 404 page
     if (wordpress.value.length === 0) {
-      router.push({ override: true, name: 'NotFound' })
+      router.push({ override: true, path: '/404' })
       return
     }
     loaded.value = true
