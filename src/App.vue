@@ -49,6 +49,10 @@ onMounted(() => {
       <li>
         <router-link to="/courses">Courses</router-link>
       </li>
+      <li v-for="course in courses" :key="course.id">
+        <router-link :class="{ active: router.currentRoute.value.path === `/course/${course.slug}` }"
+          :to="`/course/${course.slug}`">{{ course.name }}</router-link>
+      </li>
     </ul>
   </nav>
   <transition name="fade" mode="out-in">
