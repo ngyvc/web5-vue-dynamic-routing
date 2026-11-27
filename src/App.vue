@@ -16,6 +16,9 @@
       <li>
         <router-link to="/projects">Projects</router-link>
       </li>
+      <li>
+        <router-link to="/project/bruce">Project: Bruce</router-link>
+      </li>
     </ul>
   </nav>
   <router-view />
