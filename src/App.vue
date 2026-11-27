@@ -13,6 +13,9 @@
       <li>
         <router-link to="/another-long-page">Another Long Page</router-link>
       </li>
+      <li>
+        <router-link to="/projects">Projects</router-link>
+      </li>
     </ul>
   </nav>
   <router-view />

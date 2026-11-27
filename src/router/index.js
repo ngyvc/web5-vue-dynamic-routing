@@ -21,6 +21,12 @@ const router = createRouter({
       label: "Another Long Page",
       component: () => import("../views/AnotherLongPageView.vue"),
     },
+    {
+      path: "/projects",
+      name: "Projects",
+      label: "Projects",
+      component: () => import("../views/ProjectsView.vue"),
+    },
   ],
   scrollBehavior(to, from, savedPosition) {
     // Preserve scroll position when using browser back/forward buttons
