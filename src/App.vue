@@ -12,6 +12,15 @@ onMounted(() => {
       projects.value = data
     })
 })
+
+const courses = ref([])
+onMounted(() => {
+  fetch('https://ngy.582helvetica.com/wp-portfolio/wp-json/wp/v2/course?acf_format=standard')
+    .then(response => response.json())
+    .then(data => {
+      courses.value = data
+    })
+})
 </script>
 
 <template>
@@ -21,7 +30,7 @@ onMounted(() => {
       <li>
         <router-link to="/">Home</router-link>
       </li>
-      <li>
+      <!-- <li>
         <router-link to="/long-page">Long Page</router-link>
       </li>
       <li>
@@ -36,6 +45,9 @@ onMounted(() => {
       <li v-for="project in projects" :key="project.id">
         <router-link :class="{ active: router.currentRoute.value.path === `/project/${project.slug}` }"
           :to="`/project/${project.slug}`">{{ project.title.rendered }}</router-link>
+      </li> -->
+      <li>
+        <router-link to="/courses">Courses</router-link>
       </li>
     </ul>
   </nav>
