@@ -25,10 +25,35 @@ let fetchCategory = async () => {
             return
         }
         loaded.value = true
+
+        console.log(`Fetching projects for course ID: ${category.value[0]?.id}`)
+
+        fetchProjectsByCategoryId(category.value[0]?.id)
     } catch (error) {
         console.error(error)
     }
 }
+
+
+let projects = ref([])
+
+let projectsLoaded = ref(false)
+
+let fetchProjectsByCategoryId = async (id) => {
+    try {
+        const response = await fetch(`https://ngy.582helvetica.com/wp-portfolio/wp-json/wp/v2/project?course=${id}&acf_format=standard`)
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        const data = await response.json()
+        projects.value = data
+        projectsLoaded.value = true
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+
 onMounted(() => {
     fetchCategory()
 })
@@ -49,6 +74,14 @@ watch(
 <template>
     <section class="single-project" v-if="loaded">
         <h1>{{ category[0]?.slug }} - {{ category[0]?.id }}</h1>
+        <div class="projects-grid" v-if="projectsLoaded">
+            <div v-for="project in projects" :key="project.id" class="project-card">
+                <h2>{{ project.title.rendered }}</h2>
+                <p>{{ project.acf.description ? project.acf.description : 'No description available' }}</p>
+                <img :src="project.acf.preview_image?.url ? project.acf.preview_image?.url : 'https://placehold.co/600x400?text=404'"
+                    alt="Project Image" />
+            </div>
+        </div>
     </section>
 </template>
 
