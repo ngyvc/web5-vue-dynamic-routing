@@ -74,6 +74,8 @@ watch(
 <template>
     <section class="single-project" v-if="loaded">
         <h1>{{ category[0]?.slug }} - {{ category[0]?.id }}</h1>
+        <a href="https://wordpress.org/plugins/post-types-order/" target="_blank" rel="noopener noreferrer">Post Types
+            Order plugin</a>
         <div class="projects-grid" v-if="projectsLoaded">
             <div v-for="project in projects" :key="project.id" class="project-card">
                 <router-link :to="`/project/${project.slug}`">
